@@ -1,0 +1,560 @@
+/* ========================================
+   GIFT GALLERY SECTION - MODERN TYPOGRAPHY
+   Geometric Sans-Serif Font System
+   ======================================== */
+
+.gift-gallery-section {
+  max-width: 1400px;
+  margin: 80px auto;
+  padding: 0 30px;
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gift-gallery-section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   SECTION HEADER - SAAS TYPOGRAPHY
+   ======================================== */
+
+.section-header {
+  margin-bottom: 50px;
+}
+
+/* Section Badge - Modern Label */
+.section-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(255, 107, 53, 0.1));
+  color: #E91E63;
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-radius: 40px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.section-badge:hover {
+  transform: scale(1.05);
+  letter-spacing: 2px;
+}
+
+/* Section Title - Heavy Weight, Tight Spacing */
+.section-title {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Gradient Underline Accent */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, #FF6B35, #E91E63);
+  border-radius: 3px;
+  animation: titleExpand 0.8s ease-out;
+}
+
+@keyframes titleExpand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 70px;
+    opacity: 1;
+  }
+}
+
+/* Section Subtitle - Lighter Body Text */
+.section-subtitle {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: #666;
+  max-width: 600px;
+  margin: 25px auto 0;
+}
+
+/* ========================================
+   GALLERY GRID
+   ======================================== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  position: relative;
+}
+
+/* ========================================
+   GALLERY ITEMS
+   ======================================== */
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gift-gallery-section.revealed .gallery-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Animations */
+.gift-gallery-section.revealed .gallery-item:nth-child(1) { transition-delay: 0.1s; }
+.gift-gallery-section.revealed .gallery-item:nth-child(2) { transition-delay: 0.3s; }
+.gift-gallery-section.revealed .gallery-item:nth-child(3) { transition-delay: 0.2s; }
+.gift-gallery-section.revealed .gallery-item:nth-child(4) { transition-delay: 0.4s; }
+.gift-gallery-section.revealed .gallery-item:nth-child(5) { transition-delay: 0.5s; }
+
+/* Image Container */
+.gallery-item img {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  display: block;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  will-change: transform;
+}
+
+/* Side Items */
+.side-item img {
+  aspect-ratio: 1 / 1;
+}
+
+/* Main Item */
+.main-item {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.main-item img {
+  height: 100%;
+  min-height: 620px;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Effects - Smooth Zoom */
+.gallery-item:hover img {
+  transform: scale(1.04);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.main-item:hover img {
+  transform: scale(1.03);
+}
+
+/* Image Overlay */
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.gallery-item:hover::before {
+  opacity: 1;
+}
+
+/* Main Item Special Overlay */
+.main-item::before {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.3), rgba(255, 107, 53, 0.25));
+}
+
+/* ========================================
+   REMOVED BORDER ANIMATION - No red box line on hover
+   ======================================== */
+
+/* ========================================
+   ITEM LABEL - MODERN CAPTION
+   ======================================== */
+
+.item-label {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin-top: 18px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 5px;
+}
+
+/* Label Underline Animation */
+.item-label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FF6B35, #E91E63);
+  transition: width 0.4s ease;
+}
+
+.gallery-item:hover .item-label::after {
+  width: 100%;
+}
+
+.gallery-item:hover .item-label {
+  color: #E91E63;
+  letter-spacing: 3.5px;
+  transform: translateY(-2px);
+}
+
+/* Main Item Label - Slightly Larger */
+.main-item .item-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   ======================================== */
+
+@keyframes smoothReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gallery-item {
+  animation: smoothReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+/* Remove animation after reveal */
+.gift-gallery-section.revealed .gallery-item {
+  animation: none;
+}
+
+/* Floating Animation on Hover for Main Item */
+@keyframes floatPulse {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.main-item:hover {
+  animation: floatPulse 1s ease infinite;
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY
+   ======================================== */
+
+/* Large Desktop */
+@media (max-width: 1200px) {
+  .gift-gallery-section {
+    margin: 70px auto;
+    padding: 0 25px;
+  }
+  
+  .main-item img {
+    min-height: 550px;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+  .gift-gallery-section {
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  
+  .main-item img {
+    min-height: 480px;
+  }
+  
+  .item-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+    letter-spacing: -0.018em;
+  }
+  
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .gallery-grid {
+    gap: 20px;
+  }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+  .gift-gallery-section {
+    margin: 50px auto;
+    padding: 0 15px;
+  }
+  
+  .section-header {
+    margin-bottom: 35px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  
+  .section-title::after {
+    width: 50px;
+  }
+  
+  .section-badge {
+    font-size: 0.65rem;
+    padding: 6px 16px;
+    letter-spacing: 1.2px;
+  }
+  
+  .section-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .main-item {
+    grid-row: auto;
+    grid-column: auto;
+  }
+  
+  .main-item img {
+    min-height: auto;
+    aspect-ratio: 3/4;
+  }
+  
+  .item-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-top: 14px;
+  }
+}
+
+/* Mobile Large */
+@media (max-width: 480px) {
+  .gift-gallery-section {
+    margin: 40px auto;
+    padding: 0 12px;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    letter-spacing: -0.012em;
+  }
+  
+  .section-title::after {
+    width: 40px;
+    bottom: -8px;
+  }
+  
+  .section-badge {
+    font-size: 0.6rem;
+    padding: 5px 12px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+  
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .gallery-grid {
+    gap: 25px;
+  }
+  
+  .item-label {
+    font-size: 0.7rem;
+    letter-spacing: 1.8px;
+    margin-top: 12px;
+  }
+  
+  .gallery-item img {
+    border-radius: 18px;
+  }
+  
+  .gallery-item::before {
+    border-radius: 18px;
+  }
+}
+
+/* Mobile Small */
+@media (max-width: 360px) {
+  .section-title {
+    font-size: 1.35rem;
+  }
+  
+  .item-label {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+  }
+  
+  .section-badge {
+    font-size: 0.55rem;
+    padding: 4px 10px;
+  }
+}
+
+/* ========================================
+   LOADING SKELETON
+   ======================================== */
+
+.gallery-item img[src=""],
+.gallery-item img:not([src]) {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+body.dark-mode .gift-gallery-section {
+  background: transparent;
+}
+
+body.dark-mode .section-title {
+  color: #ffffff;
+}
+
+body.dark-mode .section-subtitle {
+  color: #aaa;
+}
+
+body.dark-mode .item-label {
+  color: #ddd;
+}
+
+body.dark-mode .gallery-item:hover .item-label {
+  color: #FF6B35;
+}
+
+body.dark-mode .gallery-item::before {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+}
+
+body.dark-mode .main-item::before {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.4), rgba(255, 107, 53, 0.3));
+}
+
+/* ========================================
+   ADDITIONAL EFFECTS
+   ======================================== */
+
+/* Parallax Effect on Scroll */
+@media (min-width: 1024px) {
+  .gift-gallery-section {
+    background-attachment: fixed;
+  }
+}
+
+/* Hover Glow Effect */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(233, 30, 99, 0.2);
+  }
+}
+
+.main-item:hover {
+  animation: glowPulse 1.5s ease infinite;
+}
+
+/* Scale Transition on Load */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gift-gallery-section.revealed {
+  animation: scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}

@@ -1,0 +1,563 @@
+/* ========================================
+   MODERN GEOMETRIC SANS-SERIF TYPOGRAPHY
+   SaaS-Style Font System (Inter + Poppins)
+   ======================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* Base Typography System */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   FULL HERO SECTION - Attached to navbar
+   ======================================== */
+
+/* ========================================
+   FIX HERO SECTION TO NAVBAR - Remove Space
+   ======================================== */
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: background-image 0.5s ease-in-out;
+  margin-top: 0;
+  padding-top: 0;
+  margin-top: -16px; /* Add this to pull hero up under navbar */
+}
+
+/* REMOVED: hero-overlay - No black overlay */
+
+/* Fade Animations */
+.hero.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.hero.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   HERO CONTENT - TYPOGRAPHY HIERARCHY
+   ======================================== */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 700px;
+  padding: 0 60px;
+  animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ALIGNMENTS */
+.hero-content.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-content.left {
+  margin-left: 80px;
+  text-align: left;
+}
+
+/* ========================================
+   HERO BADGE - MODERN LABEL STYLE
+   ======================================== */
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 40px;
+  margin-bottom: 25px;
+  animation: badgePulse 2s infinite;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* ========================================
+   HERO TITLE - PREMIUM GEOMETRIC HEADING
+   Weight: 800 | Letter-spacing: -0.02em
+   Line-height: 1.2 | Gradient finish
+   ======================================== */
+
+.hero-title {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #FFFFFF, #FFE0B2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  animation: titleReveal 0.8s ease-out;
+}
+
+/* Premium text rendering */
+.hero-title br {
+  display: inherit;
+}
+
+@keyframes titleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   ANIMATED LINE - BRAND ACCENT
+   ======================================== */
+
+.hero-line {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #FF6B35, #E91E63, #FF6B35);
+  margin: 20px 0;
+  border-radius: 3px;
+  animation: lineExpand 0.8s ease-out, lineGlow 2s ease-in-out infinite;
+}
+
+.hero-content.center .hero-line {
+  margin: 20px auto;
+}
+
+@keyframes lineExpand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 80px;
+    opacity: 1;
+  }
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(233, 30, 99, 0.6);
+  }
+}
+
+/* ========================================
+   HERO DESCRIPTION - BODY TEXT
+   Weight: 400 | Line-height: 1.6 | Soft contrast
+   ======================================== */
+
+.hero-description {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 35px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(5px);
+  display: inline-block;
+  padding: 0;
+}
+
+/* ========================================
+   BUTTONS - SAAS MODERN STYLE
+   ======================================== */
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.hero-content.center .hero-buttons {
+  justify-content: center;
+}
+
+.hero-content.left .hero-buttons {
+  justify-content: flex-start;
+}
+
+/* Primary Button - Premium Style */
+.btn-primary {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, #FF6B35, #E91E63);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(233, 30, 99, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(233, 30, 99, 0.5);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* ========================================
+   SLIDE INDICATORS - MODERN MINIMAL
+   ======================================== */
+
+.slide-indicators {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 3;
+}
+
+.indicator {
+  width: 40px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B35, #E91E63);
+  transition: left 0.3s ease;
+}
+
+.indicator.active::before {
+  left: 0;
+}
+
+.indicator.active {
+  width: 60px;
+  background: transparent;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ========================================
+   SCROLL DOWN INDICATOR - MODERN
+   ======================================== */
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 25px;
+  z-index: 3;
+  backdrop-filter: blur(5px);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 10px;
+  background: linear-gradient(180deg, #FF6B35, #E91E63);
+  border-radius: 2px;
+  z-index: 3;
+  animation: scrollDown 2s infinite;
+  box-shadow: 0 0 5px rgba(233, 30, 99, 0.5);
+}
+
+@keyframes scrollDown {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+  }
+}
+
+/* ========================================
+   RESPONSIVE TYPOGRAPHY - SCALING SYSTEM
+   ======================================== */
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 48px;
+    letter-spacing: -0.018em;
+  }
+  
+  .hero-content {
+    max-width: 550px;
+    padding: 0 40px;
+  }
+  
+  .hero-content.left {
+    margin-left: 50px;
+  }
+  
+  .hero-description {
+    font-size: 17px;
+  }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 38px;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  
+  .hero-description {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .hero-content {
+    max-width: 450px;
+    padding: 0 30px;
+  }
+  
+  .hero-content.left {
+    margin-left: 30px;
+  }
+  
+  .btn-primary {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+  }
+  
+  .slide-indicators {
+    bottom: 25px;
+  }
+  
+  .hero::after, .hero::before {
+    display: none;
+  }
+  
+  .hero-badge {
+    font-size: 0.6rem;
+    padding: 6px 14px;
+    letter-spacing: 1.2px;
+  }
+}
+
+/* Mobile Large */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 30px;
+    letter-spacing: -0.012em;
+    line-height: 1.25;
+  }
+  
+  .hero-description {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+  }
+  
+  .hero-content {
+    padding: 0 20px;
+  }
+  
+  .hero-content.left {
+    margin-left: 20px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 14px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Small */
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+  
+  .hero-description {
+    font-size: 13px;
+  }
+  
+  .hero-badge {
+    font-size: 0.55rem;
+    padding: 5px 12px;
+    letter-spacing: 1px;
+  }
+}
+
+/* ========================================
+   DARK MODE SUPPORT - LIGHTER TEXT
+   ======================================== */
+
+body.dark-mode .hero-badge {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .hero-title {
+  background: linear-gradient(135deg, #FFFFFF, #FFE0B2);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+body.dark-mode .hero-description {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ========================================
+   GLOBAL SMOOTH SCROLL & ACCESSIBILITY
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improved focus states for accessibility */
+.btn-primary:focus-visible,
+.indicator:focus-visible {
+  outline: 2px solid #FF6B35;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
