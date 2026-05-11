@@ -68,351 +68,254 @@ import redStripedCloth from '../../assets/images/Product/model2/RedStriped/cloth
 import redStripedBack from '../../assets/images/Product/model2/RedStriped/backpose.avif';
 
 const ProductGridSection = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const [selectedVariants, setSelectedVariants] = useState({});
-  const [hoverStates, setHoverStates] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [selectedVariants, setSelectedVariants] = useState({});
+  const [hoverStates, setHoverStates] = useState({});
+  const [currentImages, setCurrentImages] = useState({});
+  const sectionRef = useRef(null);
 
-  const sectionRef = useRef(null);
+  // Products with full color variant support
+  const products = [
+    { 
+      id: 1, 
+      brand: "AdvertFlair", 
+      name: "Premium Dress Collection", 
+      variants: [
+        { 
+          name: "Mustard Yellow", 
+          colorHex: "#E1AD01", 
+          mainImg: mustardDress,
+          hoverImg: mustardDetail1,
+          gallery: [mustardDress, mustardCloths, mustardDetail1, mustardDetail2, mustardDetail3, mustardDetail4],
+        },
+        { 
+          name: "Khaki Green", 
+          colorHex: "#4B5320", 
+          mainImg: khakiDress,
+          hoverImg: khakiDetail1,
+          gallery: [khakiDress, khakiCloths, khakiDetail1, khakiDetail2, khakiDetail3, khakiDetail4, khakiDetail5],
+        }
+      ],
+      description: "Elegant dress perfect for any occasion. Crafted with premium quality fabric for ultimate comfort and style.",
+    },
+    { 
+      id: 2, 
+      brand: "AdvertFlair", 
+      name: "Premium Denim Collection", 
+      variants: [
+        { 
+          name: "Dark Denim Blue", 
+          colorHex: "#1a3a5c", 
+          mainImg: darkDenimDress,
+          hoverImg: darkDenimHover,
+          gallery: [darkDenimDress, darkDenimHover, darkDenimCloth, darkDenimDetail1, darkDenimDetail2, darkDenimDetail3],
+        },
+        { 
+          name: "Light Denim Blue", 
+          colorHex: "#7CB9E8", 
+          mainImg: lightDenimDress,
+          hoverImg: lightDenimMain,
+          gallery: [lightDenimDress, lightDenimMain, lightDenimDetail1, lightDenimCloth, lightDenimDetail2, lightDenimDetail3],
+        }
+      ],
+      description: "Premium denim collection featuring classic blue washes. Perfect for everyday wear with a modern, tailored fit.",
+    },
+    { 
+      id: 3, 
+      brand: "AdvertFlair", 
+      name: "Waisted Cotton Shirt Collection", 
+      variants: [
+        { 
+          name: "Bright Red", 
+          colorHex: "#E3472F", 
+          mainImg: brightRedMain,
+          hoverImg: brightRedHover,
+          gallery: [brightRedMain, brightRedDetail1, brightRedDetail2, brightRedDetail3, brightRedHover],
+        },
+        { 
+          name: "Dark Brown", 
+          colorHex: "#5C4033", 
+          mainImg: darkBrownMain,
+          hoverImg: darkBrownHover,
+          gallery: [darkBrownMain, darkBrownDetail1, darkBrownDetail2, darkBrownDetail3, darkBrownHover],
+        },
+        { 
+          name: "Light Blue", 
+          colorHex: "#87CEEB", 
+          mainImg: lightBlueMain,
+          hoverImg: lightBlueMain,
+          gallery: [lightBlueMain, lightBlueDetail1],
+        }
+      ],
+      description: "Classic waisted cotton shirt with a tailored fit. Perfect for both casual and formal occasions.",
+    },
+    { 
+      id: 4, 
+      brand: "AdvertFlair", 
+      name: "Balloon Sleeve Dress Collection", 
+      variants: [
+        { 
+          name: "Blue", 
+          colorHex: "#4A90E2", 
+          mainImg: blueMain,
+          hoverImg: blueHover,
+          gallery: [blueMain, blueDetail1, blueDetail2, blueCloth, blueHover, blueDetail3],
+        },
+        { 
+          name: "Red Striped", 
+          colorHex: "#DC143C", 
+          mainImg: redStripedMain,
+          hoverImg: redStripedHover,
+          gallery: [redStripedMain, redStripedHover, redStripedCloth, redStripedBack],
+        }
+      ],
+      description: "Stylish balloon sleeve dress with elegant design. Perfect for making a fashion statement.",
+    }
+  ];
 
-  const products = [
-    {
-      id: 1,
-      brand: 'AdvertFlair',
-      name: 'Premium Dress Collection',
-      variants: [
-        {
-          name: 'Mustard Yellow',
-          colorHex: '#E1AD01',
-          mainImg: mustardDress,
-          hoverImg: mustardDetail1,
-          gallery: [
-            mustardDress,
-            mustardCloths,
-            mustardDetail1,
-            mustardDetail2,
-            mustardDetail3,
-            mustardDetail4,
-          ],
-        },
-        {
-          name: 'Khaki Green',
-          colorHex: '#4B5320',
-          mainImg: khakiDress,
-          hoverImg: khakiDetail1,
-          gallery: [
-            khakiDress,
-            khakiCloths,
-            khakiDetail1,
-            khakiDetail2,
-            khakiDetail3,
-            khakiDetail4,
-            khakiDetail5,
-          ],
-        },
-      ],
-      description:
-        'Elegant dress perfect for any occasion.',
-    },
+  // Initialize states for all products
+  useEffect(() => {
+    const initialVariants = {};
+    const initialHovers = {};
+    const initialImages = {};
+    
+    products.forEach(product => {
+      initialVariants[product.id] = product.variants[0];
+      initialHovers[product.id] = false;
+      initialImages[product.id] = product.variants[0].mainImg;
+    });
+    
+    setSelectedVariants(initialVariants);
+    setHoverStates(initialHovers);
+    setCurrentImages(initialImages);
+    
+    console.log("Initialized products:", initialImages);
+  }, []);
 
-    {
-      id: 2,
-      brand: 'AdvertFlair',
-      name: 'Premium Denim Collection',
-      variants: [
-        {
-          name: 'Dark Denim Blue',
-          colorHex: '#1a3a5c',
-          mainImg: darkDenimDress,
-          hoverImg: darkDenimHover,
-          gallery: [
-            darkDenimDress,
-            darkDenimHover,
-            darkDenimCloth,
-            darkDenimDetail1,
-            darkDenimDetail2,
-            darkDenimDetail3,
-          ],
-        },
-        {
-          name: 'Light Denim Blue',
-          colorHex: '#7CB9E8',
-          mainImg: lightDenimDress,
-          hoverImg: lightDenimMain,
-          gallery: [
-            lightDenimDress,
-            lightDenimMain,
-            lightDenimDetail1,
-            lightDenimCloth,
-            lightDenimDetail2,
-            lightDenimDetail3,
-          ],
-        },
-      ],
-      description:
-        'Premium denim collection featuring classic blue washes.',
-    },
+  const handleMouseEnter = (productId) => {
+    const variant = selectedVariants[productId];
+    if (variant && variant.hoverImg) {
+      setCurrentImages(prev => ({ ...prev, [productId]: variant.hoverImg }));
+    }
+    setHoverStates(prev => ({ ...prev, [productId]: true }));
+  };
 
-    {
-      id: 3,
-      brand: 'AdvertFlair',
-      name: 'Waisted Cotton Shirt Collection',
-      variants: [
-        {
-          name: 'Bright Red',
-          colorHex: '#E3472F',
-          mainImg: brightRedMain,
-          hoverImg: brightRedHover,
-          gallery: [
-            brightRedMain,
-            brightRedDetail1,
-            brightRedDetail2,
-            brightRedDetail3,
-            brightRedHover,
-          ],
-        },
-        {
-          name: 'Dark Brown',
-          colorHex: '#5C4033',
-          mainImg: darkBrownMain,
-          hoverImg: darkBrownHover,
-          gallery: [
-            darkBrownMain,
-            darkBrownDetail1,
-            darkBrownDetail2,
-            darkBrownDetail3,
-            darkBrownHover,
-          ],
-        },
-        {
-          name: 'Light Blue',
-          colorHex: '#87CEEB',
-          mainImg: lightBlueMain,
-          hoverImg: lightBlueMain,
-          gallery: [lightBlueMain, lightBlueDetail1],
-        },
-      ],
-      description:
-        'Classic waisted cotton shirt with a tailored fit.',
-    },
+  const handleMouseLeave = (productId) => {
+    const variant = selectedVariants[productId];
+    if (variant && variant.mainImg) {
+      setCurrentImages(prev => ({ ...prev, [productId]: variant.mainImg }));
+    }
+    setHoverStates(prev => ({ ...prev, [productId]: false }));
+  };
 
-    {
-      id: 4,
-      brand: 'AdvertFlair',
-      name: 'Balloon Sleeve Dress Collection',
-      variants: [
-        {
-          name: 'Blue',
-          colorHex: '#4A90E2',
-          mainImg: blueMain,
-          hoverImg: blueHover,
-          gallery: [
-            blueMain,
-            blueDetail1,
-            blueDetail2,
-            blueCloth,
-            blueHover,
-            blueDetail3,
-          ],
-        },
-        {
-          name: 'Red Striped',
-          colorHex: '#DC143C',
-          mainImg: redStripedMain,
-          hoverImg: redStripedHover,
-          gallery: [
-            redStripedMain,
-            redStripedHover,
-            redStripedCloth,
-            redStripedBack,
-          ],
-        },
-      ],
-      description:
-        'Stylish balloon sleeve dress with elegant design.',
-    },
-  ];
+  const handleVariantChange = (productId, variant) => {
+    console.log(`Changing product ${productId} to ${variant.name}`);
+    
+    const isHovering = hoverStates[productId];
+    setSelectedVariants(prev => ({ ...prev, [productId]: variant }));
+    
+    // Update image immediately
+    setCurrentImages(prev => ({ 
+      ...prev, 
+      [productId]: isHovering && variant.hoverImg ? variant.hoverImg : variant.mainImg 
+    }));
+  };
 
-  useEffect(() => {
-    const initialVariants = {};
-    const initialHovers = {};
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-    products.forEach((product) => {
-      initialVariants[product.id] = product.variants[0];
-      initialHovers[product.id] = false;
-    });
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
-    setSelectedVariants(initialVariants);
-    setHoverStates(initialHovers);
-  }, []);
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
-  const handleMouseEnter = (productId) => {
-    setHoverStates((prev) => ({
-      ...prev,
-      [productId]: true,
-    }));
-  };
+  const openModal = (product) => {
+    const selectedVariant = selectedVariants[product.id];
+    setSelectedProduct({
+      ...product,
+      currentVariant: selectedVariant
+    });
+  };
 
-  const handleMouseLeave = (productId) => {
-    setHoverStates((prev) => ({
-      ...prev,
-      [productId]: false,
-    }));
-  };
+  return (
+    <section className="product-grid-section" ref={sectionRef}>
+      <div className="product-header">
+        <span className="product-badge">AI GENERATED COLLECTION</span>
+        <h2 className="product-title">Premium Fashion Visuals</h2>
+        <p className="product-subtitle">AI-powered fashion visualization showcasing our creative capabilities</p>
+      </div>
 
-  const handleVariantChange = (productId, variant) => {
-    setSelectedVariants((prev) => ({
-      ...prev,
-      [productId]: variant,
-    }));
-  };
+      <div className="product-container">
+        {products.map((product, index) => {
+          const selectedVariant = selectedVariants[product.id];
+          const currentImage = currentImages[product.id];
+          
+          return (
+            <div 
+              key={product.id} 
+              className={`product-card ${visible ? 'animate' : ''}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onMouseEnter={() => handleMouseEnter(product.id)}
+              onMouseLeave={() => handleMouseLeave(product.id)}
+            >
+              <div 
+                className="product-image-wrapper"
+                onClick={() => openModal(product)}
+              >
+                {currentImage && (
+                  <img src={currentImage} alt={product.name} />
+                )}
+                <div className="product-overlay">
+                  <span className="quick-view">Quick View</span>
+                </div>
+              </div>
+              <div className="product-info-grid">
+                <p className="product-brand">{product.brand}</p>
+                <p className="product-name" onClick={() => openModal(product)}>{product.name}</p>
+                {product.variants && (
+                  <div className="product-colors" onClick={(e) => e.stopPropagation()}>
+                    {product.variants.map((variant, idx) => (
+                      <span 
+                        key={idx} 
+                        className={`color-dot ${selectedVariant?.name === variant.name ? 'active' : ''}`}
+                        style={{ backgroundColor: variant.colorHex }}
+                        title={variant.name}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleVariantChange(product.id, variant);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
-  const openModal = (product) => {
-    const selectedVariant = selectedVariants[product.id];
-
-    setSelectedProduct({
-      ...product,
-      currentVariant: selectedVariant,
-    });
-  };
-
-  return (
-    <section className="product-grid-section" ref={sectionRef}>
-      <div className="product-header">
-        <span className="product-badge">
-          AI GENERATED COLLECTION
-        </span>
-
-        <h2 className="product-title">
-          Premium Fashion Visuals
-        </h2>
-
-        <p className="product-subtitle">
-          AI-powered fashion visualization showcasing our creative capabilities
-        </p>
-      </div>
-
-      <div className="product-container">
-        {products.map((product, index) => {
-          const selectedVariant =
-            selectedVariants[product.id];
-
-          const currentImage =
-            hoverStates[product.id]
-              ? selectedVariant?.hoverImg ||
-                selectedVariant?.mainImg
-              : selectedVariant?.mainImg;
-
-          return (
-            <div
-              key={product.id}
-              className={`product-card ${
-                visible ? 'animate' : ''
-              }`}
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
-              onMouseEnter={() =>
-                handleMouseEnter(product.id)
-              }
-              onMouseLeave={() =>
-                handleMouseLeave(product.id)
-              }
-            >
-              <div
-                className="product-image-wrapper"
-                onClick={() => openModal(product)}
-              >
-                {currentImage && (
-                  <img
-                    key={`${product.id}-${selectedVariant?.name}-${hoverStates[product.id]}`}
-                    src={currentImage}
-                    alt={product.name}
-                  />
-                )}
-
-                <div className="product-overlay">
-                  <span className="quick-view">
-                    Quick View
-                  </span>
-                </div>
-              </div>
-
-              <div className="product-info-grid">
-                <p className="product-brand">
-                  {product.brand}
-                </p>
-
-                <p
-                  className="product-name"
-                  onClick={() => openModal(product)}
-                >
-                  {product.name}
-                </p>
-
-                <div
-                  className="product-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {product.variants.map((variant, idx) => (
-                    <span
-                      key={idx}
-                      className={`color-dot ${
-                        selectedVariant?.name ===
-                        variant.name
-                          ? 'active'
-                          : ''
-                      }`}
-                      style={{
-                        backgroundColor:
-                          variant.colorHex,
-                      }}
-                      title={variant.name}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleVariantChange(
-                          product.id,
-                          variant
-                        );
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
-    </section>
-  );
+      {selectedProduct && (
+        <ProductModal 
+          product={selectedProduct} 
+          onClose={() => setSelectedProduct(null)} 
+        />
+      )}
+    </section>
+  );
 };
 
 export default ProductGridSection;
